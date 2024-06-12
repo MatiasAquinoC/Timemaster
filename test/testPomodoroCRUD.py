@@ -2,8 +2,8 @@ import unittest
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from modelo.createDatabase import Pomodoro, Base  # Asegúrate de importar el modelo y la base de datos
-from logica.pomodoroCRUD import pomodoro  # Asegúrate de importar la clase CRUD para Pomodoro
+from src.modelo.createDatabase import Pomodoro, Base  # Asegúrate de importar el modelo y la base de datos
+from src.logica.pomodoroCRUD import pomodoro  # Asegúrate de importar la clase CRUD para Pomodoro
 
 class TestPomodoroCRUDOperations(unittest.TestCase):
 

@@ -1,6 +1,6 @@
 import unittest
-from modelo.createDatabase import Base, create_engine, sessionmaker
-from logica.usuarioCRUD import usuarioCRUD
+from src.modelo.createDatabase import Base, create_engine, sessionmaker
+from src.logica.usuarioCRUD import usuarioCRUD
 
 class TestUsuarioCRUD(unittest.TestCase):
 

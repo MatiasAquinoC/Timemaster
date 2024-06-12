@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from modelo.createDatabase import Contador, Base  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.createDatabase import Contador  # Asegúrate de importar el modelo y la base de datos
 
 engine = create_engine('sqlite:///mydatabase.db')
 Session = sessionmaker(bind=engine)
