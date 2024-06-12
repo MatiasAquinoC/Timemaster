@@ -1,4 +1,4 @@
-from src.modelo.createDatabase import Usuario  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.CreateDatabase import Usuario  # Asegúrate de importar el modelo y la base de datos
 
 class usuarioCRUD:
     def __init__(self, session):

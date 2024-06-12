@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.modelo.createDatabase import Temporizador  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.CreateDatabase import Temporizador  # Asegúrate de importar el modelo y la base de datos
 
 engine = create_engine('sqlite:///mydatabase.db')
 Session = sessionmaker(bind=engine)
@@ -11,7 +11,7 @@ class temporizador:
         nuevo_temporizador = Temporizador(FechaInicio=FechaInicio, duracion=duracion, sonido=sonido, ID_Usuario=ID_Usuario)
         session.add(nuevo_temporizador)
         session.commit()
-
+        return nuevo_temporizador
     def get_temporizador_by_id(temporizador_id):
         return session.query(Temporizador).filter(Temporizador.ID_Temporizador == temporizador_id).first()
 
@@ -28,11 +28,13 @@ class temporizador:
             if ID_Usuario:
                 temporizador.ID_Usuario = ID_Usuario
             session.commit()
-
+        return temporizador
     def delete_temporizador(temporizador_id):
         temporizador = session.query(Temporizador).filter(Temporizador.ID_Temporizador == temporizador_id).first()
         if temporizador:
             session.delete(temporizador)
             session.commit()
+            return None
+        return temporizador
 def close_session():
     session.close()

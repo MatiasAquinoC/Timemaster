@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.modelo.createDatabase import Pomodoro  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.CreateDatabase import Pomodoro  # Asegúrate de importar el modelo y la base de datos
 
 engine = create_engine('sqlite:///mydatabase.db')
 Session = sessionmaker(bind=engine)
@@ -11,7 +11,7 @@ class pomodoro:
         nuevo_pomodoro = Pomodoro(duracionTrabajo=duracionTrabajo, horaInicio=horaInicio, duracionDescanso=duracionDescanso, estado=estado, ID_Usuario=ID_Usuario)
         session.add(nuevo_pomodoro)
         session.commit()
-
+        return nuevo_pomodoro
     def get_pomodoro_by_id(pomodoro_id):
         return session.query(Pomodoro).filter(Pomodoro.ID_Pomodoro == pomodoro_id).first()
 
@@ -29,11 +29,13 @@ class pomodoro:
             if ID_Usuario:
                 pomodoro.ID_Usuario = ID_Usuario
             session.commit()
-
+        return pomodoro
     def delete_pomodoro(pomodoro_id):
         pomodoro = session.query(Pomodoro).filter(Pomodoro.ID_Pomodoro == pomodoro_id).first()
         if pomodoro:
             session.delete(pomodoro)
             session.commit()
+            return None
+        return pomodoro
 def close_session():
     session.close()

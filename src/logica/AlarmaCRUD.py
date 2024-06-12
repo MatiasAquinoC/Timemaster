@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.modelo.createDatabase import Alarma  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.CreateDatabase import Alarma  # Asegúrate de importar el modelo y la base de datos
 
 engine = create_engine('sqlite:///mydatabase.db')
 Session = sessionmaker(bind=engine)
@@ -11,6 +11,7 @@ class alarma:
         nueva_alarma = Alarma(nombre=nombre, horaInicio=horaInicio, estado=estado, sonido=sonido, ID_Usuario=ID_Usuario)
         session.add(nueva_alarma)
         session.commit()
+        return nueva_alarma
 
     def get_alarma_by_id(alarma_id):
         return session.query(Alarma).filter(Alarma.ID_Alarma == alarma_id).first()
@@ -29,12 +30,13 @@ class alarma:
             if ID_Usuario:
                 alarma.ID_Usuario = ID_Usuario
             session.commit()
-
+        return alarma
     def delete_alarma(alarma_id):
         alarma = session.query(Alarma).filter(Alarma.ID_Alarma == alarma_id).first()
         if alarma:
             session.delete(alarma)
             session.commit()
-
+            return None
+        return alarma
 def close_session():
     session.close()

@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.modelo.createDatabase import Cronometro  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.CreateDatabase import Cronometro  # Asegúrate de importar el modelo y la base de datos
 
 engine = create_engine('sqlite:///mydatabase.db')
 Session = sessionmaker(bind=engine)
@@ -11,6 +11,7 @@ class cronometro:
         nuevo_cronometro = Cronometro(fechaInicio=fechaInicio, duracion=duracion, fechasParciales=fechasParciales, ID_Usuario=ID_Usuario)
         session.add(nuevo_cronometro)
         session.commit()
+        return nuevo_cronometro
 
     def get_cronometro_by_id(cronometro_id):
         return session.query(Cronometro).filter(Cronometro.ID_Cronometro == cronometro_id).first()
@@ -27,12 +28,13 @@ class cronometro:
             if ID_Usuario:
                 cronometro.ID_Usuario = ID_Usuario
             session.commit()
-
+        return cronometro
     def delete_cronometro(cronometro_id):
         cronometro = session.query(Cronometro).filter(Cronometro.ID_Cronometro == cronometro_id).first()
         if cronometro:
             session.delete(cronometro)
             session.commit()
-
+            return None
+        return cronometro
 def close_session():
     session.close()

@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from src.modelo.createDatabase import Configuracion  # Asegúrate de importar el modelo y la base de datos
+from src.modelo.CreateDatabase import Configuracion  # Asegúrate de importar el modelo y la base de datos
 
 engine = create_engine('sqlite:///mydatabase.db')
 Session = sessionmaker(bind=engine)
@@ -11,6 +11,7 @@ class configuracion:
         nueva_configuracion = Configuracion(configuracionModo=configuracionModo, configuracionReloj=configuracionReloj, configuracionFuente=configuracionFuente, ID_Usuario=ID_Usuario)
         session.add(nueva_configuracion)
         session.commit()
+        return nueva_configuracion
 
     def get_configuracion_by_id(configuracion_id):
         return session.query(Configuracion).filter(Configuracion.ID_Configuracion == configuracion_id).first()
@@ -27,11 +28,12 @@ class configuracion:
             if ID_Usuario:
                 configuracion.ID_Usuario = ID_Usuario
             session.commit()
-
+        return configuracion
     def delete_configuracion(configuracion_id):
         configuracion = session.query(Configuracion).filter(Configuracion.ID_Configuracion == configuracion_id).first()
         if configuracion:
             session.delete(configuracion)
             session.commit()
+        return configuracion
 def close_session():
     session.close()
