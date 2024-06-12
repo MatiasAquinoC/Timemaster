@@ -8,7 +8,7 @@ class Usuario(Base):
     __tablename__ = 'usuario'
     ID_Usuario = Column(Integer, primary_key=True, autoincrement=True)
     nombre = Column(String, nullable=False)
-    email = Column(String, nullable=False, unique=True)
+    email = Column(String, nullable=False)
     contraseña = Column(String, nullable=False)
     alarmas = relationship('Alarma', back_populates='usuario')
     pomodoros = relationship('Pomodoro', back_populates='usuario')
@@ -83,6 +83,7 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+"""
 # Inserción de registros en las tablas
 # Crear un nuevo usuario
 nuevo_usuario = Usuario(nombre='John Doe', email='john@example.com', contraseña='password123')
@@ -153,3 +154,4 @@ session.commit()
 
 print("Base de datos y tablas creadas con éxito")
 print("Registros insertados con éxito")
+"""
