@@ -1,0 +1,43 @@
+{% extends "layout.html" %} {% block body %}
+
+<div class="container-update-form">
+  <h5 class="title">Update</h5>
+
+  <form action="/alarma/{{alarma.id_alarma}}" method="POST">
+    <div>
+      <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+      <label for="nombre">Nombre:</label>
+      <input
+        type="text"
+        name="nombre"
+        placeholder="Write name"
+        autofocus
+        required
+        value="{{alarma.nombre}}"
+      />
+    </div>
+
+    <div>
+      <label for="hora_inicio">Hora:</label>
+      <input
+        type="time"
+        name="hora_inicio"
+        placeholder="Write hour"
+        required
+        value="{{alarma.hora}}"
+      />
+    </div>
+
+    <div>
+      <label for="estado">Estado:</label>
+      <select name="estado" required>
+        <option value="true">Activo</option>
+        <option value="false">Desactivado</option>
+      </select>
+    </div>
+
+    <button>Guardar</button>
+  </form>
+</div>
+
+{% endblock %}
