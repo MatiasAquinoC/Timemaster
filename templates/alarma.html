@@ -1,0 +1,61 @@
+{% extends "layout.html" %} {% block body %}
+
+<div>
+  <div class="container-alarma">
+    <h1 class="title">Alarmas</h1>
+
+    {% include 'partials/_message.html' %}
+    <form action="/crearAlarma" method="POST">
+      <div>
+        <div>
+          <label for="nombre">Nombre:</label>
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Coloque el nombre de la alarma "
+            autofocus
+          />
+        </div>
+
+        <div>
+          <label for="hora">Hora:</label>
+          <input
+            type="time"
+            name="hora"
+            placeholder="Escriba la hora a la que sonara"
+            required
+          />
+        </div>
+
+        <button>Create</button>
+      </div>
+    </form>
+
+    <div class="container-alarmas-creadas">
+      {% for alarma in alarmas %}
+      <div class="grid-alarmas-creadas-item">
+        <div>
+          <div class="container-title-item-alarma-grid">
+            <h5>{{ alarma.nombre}}</h5>
+            <div>
+              <a href="{{ url_for('alarma.update', id=alarma.id_alarma) }}"
+                >editar</a
+              >
+              <a href="{{ url_for('alarma.delete', id=alarma.id_alarma) }}"
+                >eliminar</a
+              >
+            </div>
+          </div>
+          <p class="hora_inicio">{{ alarma.hora_inicio }}</p>
+          <p class="estado">
+            {% if alarma.estado %} Activo {% else %} Desactivado {% endif %}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

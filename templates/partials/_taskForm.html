@@ -1,0 +1,28 @@
+<form action="/login" method="POST">
+  <div>
+    <h1>Login</h1>
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+    <div>
+      <label for="username" class="label">Nombre de usuario:</label>
+      <input
+        type="text"
+        name="username"
+        placeholder="Digite su nombre de usuario"
+        autofocus
+      />
+    </div>
+
+    <div>
+      <label for="password" class="label">Contraseña:</label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Digite su contraseña"
+        required
+      />
+    </div>
+
+    <button type="submit">login</button>
+    <h5>Valores de prueba usuario: usuario contraseña: 123</h5>
+  </div>
+</form>
