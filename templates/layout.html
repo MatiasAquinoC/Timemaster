@@ -43,5 +43,72 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const alertSound2 = document.getElementById("alert-sound2");
+      document.addEventListener("DOMContentLoaded", function () {
+        let mostrarModal = false;
+        let pausaActivada = false;
+
+        function verificarAlarma() {
+          fetch("http://127.0.0.1:5000/verificar_alarma")
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.mostrar_modal) {
+                console.log(data.mostrar_modal);
+                mostrarModal = true;
+              } else {
+                console.log(false);
+                mostrarModal = false;
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              mostrarModal = false;
+            });
+        }
+
+        let modal = document.getElementById("myModal");
+        let ejecutado = localStorage.getItem("ejecutado");
+        console.log("ejeeejeje" + ejecutado);
+        console.log(typeof ejecutado);
+
+        // Mostrar el modal si mostrarModal es true
+        function actualizarModal() {
+          if (mostrarModal) {
+            if (ejecutado === "null") {
+              location.reload();
+              localStorage.setItem("ejecutado", false);
+              console.log("ejecutado" + ejecutado);
+            }
+            let span = document.getElementsByClassName("close")[0];
+            span.onclick = function () {
+              modal.style.display = "none";
+              alertSound2.pause();
+              pausaActivada = true;
+            };
+            if (!pausaActivada) {
+              alertSound2.play();
+              modal.style.display = "block";
+            }
+          } else {
+            modal.style.display = "none";
+            alertSound2.pause();
+          }
+        }
+
+        // Verificar alarmas cada segundo
+
+        if (mostrarModal == false) {
+          setInterval(actualizarModal, 5000);
+          setInterval(verificarAlarma, 10000);
+        } else {
+          setInterval(actualizarModal, 60000);
+          setInterval(verificarAlarma, 60000);
+        }
+        // Llamar a verificarAlarma inmediatamente después de cargar la página
+        verificarAlarma();
+        actualizarModal();
+      });
+    </script>
   </body>
 </html>

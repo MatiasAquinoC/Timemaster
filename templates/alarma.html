@@ -4,26 +4,42 @@
   <div class="container-alarma">
     <h1 class="title">Alarmas</h1>
 
-    {% include 'partials/_message.html' %}
+    <audio
+      id="alert-sound2"
+      src="{{url_for('static', filename='alert.mp3')}}"
+    ></audio>
+
+    <!-- Modal -->
+    {% if mostrar_modal %}
+    <div id="myModal" class="modal" style="display: block">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>¡Es hora de la alarma!</p>
+      </div>
+    </div>
+    {% endif %} {% include 'partials/_message.html' %}
     <form action="/crearAlarma" method="POST">
       <div>
         <div>
           <label for="nombre">Nombre:</label>
-          <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+          {% if csrf_enabled %}
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          {% endif %}
           <input
             type="text"
             name="nombre"
-            placeholder="Coloque el nombre de la alarma "
+            placeholder="Coloque el nombre de la alarma"
             autofocus
+            required
           />
         </div>
 
         <div>
-          <label for="hora">Hora:</label>
+          <label for="hora_inicio">Hora:</label>
           <input
             type="time"
-            name="hora"
-            placeholder="Escriba la hora a la que sonara"
+            name="hora_inicio"
+            placeholder="Escriba la hora a la que sonará"
             required
           />
         </div>
@@ -37,7 +53,7 @@
       <div class="grid-alarmas-creadas-item">
         <div>
           <div class="container-title-item-alarma-grid">
-            <h5>{{ alarma.nombre}}</h5>
+            <h5>{{ alarma.nombre }}</h5>
             <div>
               <a href="{{ url_for('alarma.update', id=alarma.id_alarma) }}"
                 >editar</a
