@@ -26,3 +26,29 @@ El proyecto tiene como objetivo desarrollar una aplicación de gestión de tiemp
    - Pruebas de Integración: Realizar pruebas de integración para verificar la interacción entre los diferentes módulos de la aplicación.
    - Pruebas del Sistema: Realizar pruebas del sistema para validar el funcionamiento global de la aplicación.
    - Pruebas de Aceptación: Realizar pruebas de aceptación para verificar que la aplicación cumple con los requisitos funcionales y no funcionales especificados.
+
+## Tecnologías utilizadas
+- Flask
+- MySQL
+- Railway
+- Pytest
+- HTML y CSS
+
+## Pasos para configurar el proyecto
+Comandos para inicializar el proyecto.
+```
+python -m virtualenv env
+pip install -r requirements.txt
+```
+Link de configuración de ejemplo para la base de datos en Railway (tiempo limite de 36 horas) por link, tiene que ser asignado al valor SQLALCHEMY_DATABASE_URI
+```
+mysql://root:jAZCoqCuPCosufYyDcuSIKCHWAjfFXNi@roundhouse.proxy.rlwy.net:45746/railway
+```
+Comando para ejecutar los tests
+```
+pytest
+```
+Comando para ejecutar el proyecto
+```
+python index.py
+```
