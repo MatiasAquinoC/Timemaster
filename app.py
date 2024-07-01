@@ -9,11 +9,13 @@ from utils.db import db
 from flask_login import LoginManager
 from models.usuarios import Usuario
 
+
 app = Flask(__name__)
 
 app.secret_key = "secret_key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:jAZCoqCuPCosufYyDcuSIKCHWAjfFXNi@roundhouse.proxy.rlwy.net:45746/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['WTF_CSRF_ENABLED'] = True
 
 db.init_app(app)
 login_manager_app = LoginManager(app)

@@ -12,10 +12,9 @@ def status_404(error):
 with app.app_context():
     db.create_all()
 
-csrf = CSRFProtect() 
-
 if __name__ == "__main__":
+    csrf = CSRFProtect()
     csrf.init_app(app)
-    app.register_error_handler(401,status_401)
-    app.register_error_handler(404,status_404)
-    app.run(debug = True)
+    app.register_error_handler(401, status_401)
+    app.register_error_handler(404, status_404)
+    app.run(debug=True)
