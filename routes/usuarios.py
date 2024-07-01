@@ -30,39 +30,20 @@ def logout():
     logout_user()
     return redirect(url_for('usuarios.login'))
     
-@usuarios.route('/crearUsuario', methods=['POST'])
-def addContact():
-    nombre = request.form['nombre']
-    email = request.form['email']
-    contrasena = request.form['contrasena']
-    
-    new_usuario = Usuario(nombre, email, contrasena)
-    db.session.add(new_usuario)
-    db.session.commit()
-
-    flash("Usuario added successfully!")
-    return redirect(url_for('contacts.index'))
-
-@usuarios.route('/usuarios/<id>', methods = ['POST','GET'])
-def update(id):
-    usuario = Usuario.query.get(id)
+@usuarios.route('/crearUsuario', methods=['GET','POST'])
+def addUser():
     if request.method == 'POST':
-        usuario.nombre = request.form['nombre']
-        usuario.email = request.form['email']
-        usuario.contrasena = request.form['contrasena']
-
+        nombre = request.form['nombre']
+        email = request.form['email']
+        contrasena = request.form['contrasena']
+        
+        new_usuario = Usuario(nombre, email, contrasena)
+        db.session.add(new_usuario)
         db.session.commit()
-        flash("Usuario updated successfully!!")
-        return redirect(url_for('contacts.index'))
-    
-    return render_template('update.html', usuario = usuario)
 
-@usuarios.route('/deleteUsuario/<id>')
-def delete(id):
-    usuario = Usuario.query.get(id)
-    db.session.delete(usuario)
-    db.session.commit()
+        flash("Usuario added successfully!")
+        return redirect(url_for('usuarios.login'))
+    else:
+        return render_template('crearUsuario.html')
 
-    flash("Usuario deleted successfully!!")
 
-    return redirect(url_for('contacts.index'))

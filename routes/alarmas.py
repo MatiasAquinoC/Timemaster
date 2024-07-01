@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash 
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify
 from models.alarmas import Alarma
 from utils.db import db
 from flask_login import login_required
+from datetime import datetime
 
 alarmas = Blueprint('alarma', __name__)
 
@@ -9,21 +10,48 @@ alarmas = Blueprint('alarma', __name__)
 @login_required
 def alarma():
     alarmas = Alarma.query.all()
-    return render_template('alarma.html', alarmas = alarmas)
+    hora_actual = datetime.now().time() 
+
+    mostrar_modal = False
+
+    for alarma in alarmas:
+        if alarma.hora_inicio == hora_actual.strftime('%H:%M'):
+            mostrar_modal = True
+            break
+
+    csrf_enabled = current_app.config.get('WTF_CSRF_ENABLED', True)
+    return render_template('alarma.html', alarmas=alarmas, csrf_enabled=csrf_enabled, mostrar_modal=mostrar_modal)
+
+@alarmas.route('/verificar_alarma')
+@login_required
+def verificar_alarma():
+    alarmas = Alarma.query.all()
+    hora_actual = datetime.now().time() 
+
+    mostrar_modal = False
+    for alarma in alarmas:
+        if alarma.hora_inicio == hora_actual.strftime('%H:%M'):
+            mostrar_modal = True
+            break
+
+    return jsonify(mostrar_modal=mostrar_modal)
 
 @alarmas.route('/crearAlarma', methods=['POST'])
 @login_required
 def addContact():
     if request.method == 'POST':
         nombre = request.form['nombre']
-        hora = request.form['hora']
-        new_alarm = Alarma(nombre, hora, 1)
+        hora_inicio = request.form['hora_inicio']
+        
+
+        new_alarm = Alarma(nombre, hora_inicio, 1)
 
         db.session.add(new_alarm)
         db.session.commit()
         flash('Alarm added successfully!')
         
         return redirect(url_for('alarma.alarma'))
+
 
 @alarmas.route('/alarma/<id>', methods = ['POST','GET'])
 @login_required
@@ -41,8 +69,9 @@ def update(id):
         db.session.commit()
         flash("Alarma updated successfully!!")
         return redirect(url_for('alarma.alarma'))
-    
-    return render_template('update.html', alarma = alarma)
+    csrf_enabled = current_app.config.get('WTF_CSRF_ENABLED', True) 
+    mostrar_modal = False
+    return render_template('update.html', alarma = alarma,csrf_enabled=csrf_enabled,mostrar_modal=mostrar_modal)
 
 @alarmas.route('/deleteAlarma/<id>')
 @login_required
