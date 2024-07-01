@@ -1,7 +1,7 @@
 # Proyecto de Fin de Asignatura: Gestor de Tiempo Multipropósito "TimeMaster"
 
 ## Descripción
-El proyecto tiene como objetivo desarrollar una aplicación de gestión de tiempo multipropósito llamada "TimeMaster". Esta aplicación combinará un temporizador, una alarma y un temporizador Pomodoro. Permitirá a los usuarios configurar y gestionar diferentes tipos de temporizadores según sus necesidades, con la capacidad de iniciar, pausar, reiniciar y salir de cada uno de ellos. Además, la aplicación incluirá un ring de 3 segundos que se activará al finalizar cada temporizador.
+__El proyecto tiene como objetivo desarrollar una aplicación de gestión de tiempo multipropósito llamada "TimeMaster". Esta aplicación combinará un temporizador, una alarma y un temporizador Pomodoro. Permitirá a los usuarios configurar y gestionar diferentes tipos de temporizadores según sus necesidades, con la capacidad de iniciar, pausar, reiniciar y salir de cada uno de ellos. Además, la aplicación incluirá un ring de 3 segundos que se activará al finalizar cada temporizador.__
 
 ## Objetivos del Proyecto
 - Desarrollar una aplicación que satisfaga las necesidades de gestión de tiempo de los usuarios.
