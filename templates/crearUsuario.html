@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Flask SQLAlchemy CRUD | Home 
+{% endblock %}
+
+{% block body %}
+
+    <!-- FORM -->
+    <div class="row">
+
+    <div class="col-md-5 p-5">
+      <!-- MESSAGE -->
+      {% include 'partials/_message.html' %}
+
+      <!-- FORM -->
+      <form action="/crearUsuario" method="POST">
+        <div>
+          <h1>Crear Usuario</h1>
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+          <div>
+            <label for="nombre" class="label">Nombre de usuario:</label>
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Digite su nombre de usuario"
+              autofocus
+            />
+          </div>
+          <div>
+            <label for="email" class="label">Correo:</label>
+            <input type="email" name="email" placeholder="Digite su email" required />
+          </div>
+          <div>
+            <label for="contrasena" class="label">Contraseña:</label>
+            <input
+              type="password"
+              name="contrasena"
+              placeholder="Digite su contraseña"
+              required
+            />
+          </div>
+      
+          <button type="submit">create</button>
+          <h5>Valores de prueba usuario: usuario contraseña: 123</h5>
+        </div>
+      </form>
+    </div>
+  </div>
+    </div>
+{% endblock %}
